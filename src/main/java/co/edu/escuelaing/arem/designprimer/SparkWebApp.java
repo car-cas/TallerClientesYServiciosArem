@@ -56,30 +56,37 @@ public class SparkWebApp {
         return total;
     }
     
-    public static void agregarDatos(double Dato ){
+    public static void leerArchivo(){
         
     }
 
     public static void main(String[] args) {
         port(getPort());
-      
+        
+        String lista;
+        
         get("/hello", (req, res) -> ("<!DOCTYPE html>" + 
                                      "<html>"+
                                      "<head>"+
-                                            "<title>Media y Derivada parcial</title>"+
+                                        "<title>Tarea 2 AREM</title>"+
                                         "</head>"+
                                         "<body>"+
+                                            "<p>Media y Derivada parcial</p>"+
+                                            "<p> * Ingrese los datos separados por comas : </p>"+
                                             "<input type='text' id='tnum' name='numero'>"+
+                                            "<button id='boton' class='button'>calcular</button>"+
+                                        "</body>"+
+                                            "<body>"+
+                                            "<p> * Media : </p>"+ media() +
+                                            "<p> * Derivada Parcial : </p>"+ derivadaParcial() +
                                         "</body>"+
                                     "</html>"));
-                                            
-        
     }
-
+    
     static int getPort() {
         if (System.getenv("PORT") != null) {
             return Integer.parseInt(System.getenv("PORT"));
         }
-        return 4567; //returns default port if heroku-port isn't set(i.e. on localhost)
+        return 4567;
     }
 }
