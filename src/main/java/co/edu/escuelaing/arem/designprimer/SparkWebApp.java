@@ -63,7 +63,16 @@ public class SparkWebApp {
     public static void main(String[] args) {
         port(getPort());
       
-        get("/hello", (req, res) -> "Media : " + media());
+        get("/hello", (req, res) -> ("<!DOCTYPE html>" + 
+                                     "<html>"+
+                                     "<head>"+
+                                            "<title>Media y Derivada parcial</title>"+
+                                        "</head>"+
+                                        "<body>"+
+                                            "<input type='text' id='tnum' name='numero'>"+
+                                        "</body>"+
+                                    "</html>"));
+                                            
         
     }
 
