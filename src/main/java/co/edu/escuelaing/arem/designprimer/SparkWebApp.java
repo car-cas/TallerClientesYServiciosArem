@@ -1,6 +1,9 @@
 
 package co.edu.escuelaing.arem.designprimer;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import static spark.Spark.*;
 
 /**
@@ -56,15 +59,31 @@ public class SparkWebApp {
         return total;
     }
     
-    public static void leerArchivo(){
+    /**
+     * Metodo leerArchivo, lee los números de un archivo .txt y los almacena en una lista enlazada
+     * @throws java.io.IOException IoException
+     * @param archivo archivo
+     */
+ 
+    public static void leerArchivo(String archivo) throws IOException{
         
+        BufferedReader in = new BufferedReader(new FileReader(archivo));
+        String listado;
+        while ((listado = in.readLine())!=null){
+            double  nuevo = Double.parseDouble(listado);
+            lista.agregar(nuevo);
+        }
+        in.close();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         port(getPort());
         
         String lista;
-        
+        String c;
+        c = "archivo.txt";
+        leerArchivo(c);
+       
         get("/hello", (req, res) -> ("<!DOCTYPE html>" + 
                                      "<html>"+
                                      "<head>"+
