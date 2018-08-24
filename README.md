@@ -1,4 +1,4 @@
-Tarea Heroku 
+Taller Clientes y Servicios
 ======
 Nombre: 
 
@@ -6,4 +6,3 @@ Nombre:
 
 Link de Heroku:
 
-* https://still-mountain-34068.herokuapp.com/
