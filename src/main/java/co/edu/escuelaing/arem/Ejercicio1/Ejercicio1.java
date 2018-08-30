@@ -1,4 +1,4 @@
-package co.edu.escuelaing.arem;
+package co.edu.escuelaing.arem.Ejercicio1;
 
 import java.io.*;
 import java.net.*;

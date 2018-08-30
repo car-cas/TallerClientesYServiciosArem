@@ -1,4 +1,4 @@
-package co.edu.escuelaing.arem;
+package co.edu.escuelaing.arem.Ejercicio2;
 
 import java.io.BufferedReader;
 import java.io.File;
