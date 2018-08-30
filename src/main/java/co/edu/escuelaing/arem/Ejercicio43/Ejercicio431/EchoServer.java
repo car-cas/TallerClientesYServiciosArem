@@ -1,4 +1,4 @@
-package co.edu.escuelaing.arem.Ejercicio43;
+package co.edu.escuelaing.arem.Ejercicio43.Ejercicio431;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +14,7 @@ import java.net.Socket;
 public class EchoServer {
 
     public static void main(String[] args) throws IOException {
+        
         ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(35000);
@@ -33,9 +34,14 @@ public class EchoServer {
                 new InputStreamReader(
                         clientSocket.getInputStream()));
         String inputLine, outputLine;
+        double input = 0;
         while ((inputLine = in.readLine()) != null) {
             System.out.println("Mensaje:" + inputLine);
-            outputLine = "Respuesta" + inputLine;
+            try{
+                input = Double.parseDouble(inputLine);
+            }catch(NumberFormatException e){
+            }
+            outputLine = "Respuesta : " + Math.pow(input, 2);
             out.println(outputLine);
             if (outputLine.equals("Respuestas: Bye.")) {
                 break;
