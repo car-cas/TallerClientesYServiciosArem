@@ -1,6 +1,9 @@
 package co.edu.escuelaing.arem.Ejercicio45;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -34,26 +37,44 @@ public class Ejercicio451 {
             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
             String inputLine, outputLine;
-            System.out.println();
             while ((inputLine = in.readLine()) != null) {
                 System.out.println("Received: " + inputLine);
-                if (!in.ready()) {
-                    break;
+                try {
+                    inputLine = inputLine.split(" ")[1];
+                    if (inputLine.endsWith(".html")) {
+                        File pagina = new File("./" + inputLine);
+                        String resultado = "";
+                        try {
+                            FileReader fReader = new FileReader(pagina);
+                            BufferedReader bReader = new BufferedReader(fReader);
+                            String line;
+                            while ((line = bReader.readLine()) != null) {
+                                resultado += line + "\n";
+                            }
+                            bReader.close();
+                        } catch (FileNotFoundException ex) {
+                            System.err.println("El recurso solicitado " + "./" + inputLine + " no existe");
+                            ex.printStackTrace();
+                        } catch (IOException ex) {
+                            System.err.println("Error en la lectura del Buffer");
+                            ex.printStackTrace();
+                        }
+                        if (!in.ready()) {
+                            break;
+                        }
+                        outputLine = "HTTP/1.1 200 OK\r\n"
+                                + "Content-Type: text/html\r\n"
+                                + "\r\n"
+                                + resultado
+                                + inputLine;
+                        out.println(outputLine);
+                    }
+
+                }catch(java.lang.ArrayIndexOutOfBoundsException e){
+                    
                 }
             }
-            outputLine = "HTTP/1.1 200 OK\r\n"
-                    + "Content-Type: text/html\r\n"
-                    + "\r\n"
-                    + "<!DOCTYPE html>"
-                    + "<html>"
-                    + "<head>"
-                    + "<meta charset=\"UTF-8\">"
-                    + "<title>Title of the document</title>\n"
-                    + "</head>" + "<body>"
-                    + "My Web Site"
-                    + "</body>"
-                    + "</html>" + inputLine;
-            out.println(outputLine);
         }
+
     }
 }
