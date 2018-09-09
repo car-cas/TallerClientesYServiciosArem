@@ -20,21 +20,26 @@ public class DatagramTimeServer {
 
     public DatagramTimeServer() throws SocketException {
         
-        socket = new DatagramSocket(4445);
+        try {
+            socket = new DatagramSocket(4445);
+        } catch (SocketException ex) {
+            Logger.getLogger(DatagramTimeServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void startServer() {
         byte[] buf = new byte[256];
         try {
             while(true) {
-                DatagramPacket datagrama = new DatagramPacket(buf, buf.length);
-                socket.receive(datagrama);
+                DatagramPacket packet = new DatagramPacket(buf, buf.length);
+                socket.receive(packet);
+                
                 String dString = new Date().toString();
                 buf = dString.getBytes();
-                InetAddress address = datagrama.getAddress();
-                int port = datagrama.getPort();
-                datagrama = new DatagramPacket(buf, buf.length, address, port);
-                socket.send(datagrama);
+                InetAddress address = packet.getAddress();
+                int port = packet.getPort();
+                packet = new DatagramPacket(buf, buf.length, address, port);
+                socket.send(packet);
             }
         } catch (IOException ex) {
             Logger.getLogger(DatagramTimeServer.class.getName()).log(Level.SEVERE, null, ex);
